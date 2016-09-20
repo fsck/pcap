@@ -266,7 +266,7 @@ impl Linktype {
 }
 
 /// Represents a packet returned from pcap.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub struct Packet<'a> {
     pub header: &'a PacketHeader,
     pub data: &'a [u8]
@@ -279,6 +279,8 @@ impl<'b> Deref for Packet<'b> {
         self.data
     }
 }
+
+unsafe impl<'a> Send for Packet<'a> {}
 
 #[derive(Debug, Clone, Copy)]
 pub struct Stat {
